@@ -7,11 +7,18 @@ import json
 # Create your views here.
 
 class IndexView(View):
-    template_name = 'index.html'
+    template_name = 'github_user_data_app/index.html'
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
 
-        res = requests.get('https://api.github.com/users/Karm0s')
+        return render(request, self.template_name, context={'user_data': 'hello world'})
 
 
-        return HttpResponse(res)
+    def post(self, request, *args, **kwargs):
+        github_url = "https://api.github.com/users/"+request.POST['user']
+
+        req = requests.get(github_url)
+        json_data = []
+        json_data.append(json.loads(req.content))
+
+        return render(request, self.template_name, context={})
