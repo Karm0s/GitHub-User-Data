@@ -1,0 +1,22 @@
+.margins{
+  margin-top: 10%;
+}
+
+.rounded-image{
+  border-radius: 100%;
+}
+
+.row-width{
+  width: 80%;
+}
+
+.form-section{
+  margin-top: 5%;
+}
+
+.highlight-text{
+  color: #0069d9;
+}
+a{
+  color: black;
+}

@@ -11,14 +11,19 @@ class IndexView(View):
 
     def get(self, request, *args, **kwargs):
 
-        return render(request, self.template_name, context={'user_data': 'hello world'})
+        return render(request, self.template_name)
 
 
     def post(self, request, *args, **kwargs):
-        github_url = "https://api.github.com/users/"+request.POST['user']
+        github_api_user_url = "https://api.github.com/users/"+request.POST['user']
+        github_api_user_repos_url = github_api_user_url + "/repos"
 
-        req = requests.get(github_url)
-        json_data = []
-        json_data.append(json.loads(req.content))
 
-        return render(request, self.template_name, context={})
+        user_data = requests.get(github_api_user_url)
+        user_json_data = json.loads(user_data.content)
+
+        repos_data = requests.get(github_api_user_repos_url)
+        repos_json_data = json.loads(repos_data.content)
+        print(repos_json_data[0])
+
+        return render(request, self.template_name, context={'user_data': user_json_data, 'repos_data': repos_json_data})

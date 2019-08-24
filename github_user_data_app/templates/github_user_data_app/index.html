@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Github User Data</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <link rel="stylesheet" href='{% static 'github_user_data_app/main.css' %}'>
+    </head>
+
+    <body class="bg-light text-dark">
+        <div class="container-fluid margins">
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <img src="{%static 'github_user_data_app/images/GitHub-Mark-120px-plus.png'%}" alt="GitHub Logo">
+              </div>
+            </div>
+            <div class='row justify-content-center'>
+                <h1 class='display-3'>GITHUB USER DATA</h1>
+            </div>
+
+
+            <div class='row justify-content-center form-section'>
+              <div class="col">
+                <form class="form" method='post'>
+                  {% csrf_token %}
+                  <div>
+                    <input type='text' name='user' class='form-control' placeholder='Github User Name, e.g: Karm0s'>
+                  </div>
+                  <div class="text-center">
+                    <button type='submit' class='btn btn-primary mt-5'>Get Data</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            {% if user_data %}
+              <div class="row justify-content-center">
+                <div class="col-auto mt-5 ">
+                  <div class='container center-block'>
+                    <div class='row text-center'>
+
+                      <div class='col-12'>
+                        <img src="{{user_data.avatar_url}}" width=150 height=150 class='img-fluid rounded-image'>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class='col-auto'>
+                        <h4><span class="highlight-text">Name:</span> {{user_data.login}}</h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class='col-auto'>
+                        <h4><span class="highlight-text">Bio:</span> {{user_data.bio}}</h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-auto">
+                        <h4><span class="highlight-text">Github url:</span> <a href=" {{user_data.html_url}}"> {{user_data.html_url}}</a> </h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-auto">
+                        <h4><span class="highlight-text">Location:</span> {{user_data.location}}</h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-auto">
+                        <h4><span class="highlight-text">Creation date:</span> {{user_data.created_at}}</h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-auto">
+                        <h4><span class="highlight-text">Repos:</span></h4>
+                      </div>
+                    </div>
+
+                    {%for repo in repos_data%}
+                    <div class="row ml-5 mt-5">
+                      <div class="col-auto">
+                        <h4><span class="highlight-text">Repo Name:</span> {{repo.name}}</h4>
+                      </div>
+                    </div>
+                    <div class="row ml-5">
+                      <div class="col-auto align-self-start">
+                        <h4><span class="highlight-text">Description:</span> {{repo.description}}</h4>
+                      </div>
+                    </div>
+                    <div class="row ml-5">
+                      <div class="col-auto align-self-start">
+                        <h4><span class="highlight-text">Repo Url:</span> <a href="{{repo.html_url}}">{{repo.html_url}}</a></h4>
+                      </div>
+                    </div>
+                    {%endfor%}
+                  </div>
+
+                </div>
+              </div>
+            {% endif %}
+
+
+
+            <div class="row text-center mt-5">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col">
+                    <h4><span class="highlight-text">Made By: Yanis Bouchenna</span></h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h5>Email Me: <a href="mailto:bouchenna.yanis@protonmail.com?subject=feedback">bouchenna.yanis@protonmail.com</a> </h5>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <p>All the code of this site is available <a href="#">here</a>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+
+</html>
