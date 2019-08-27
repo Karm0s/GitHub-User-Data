@@ -40,7 +40,7 @@
               </div>
             </div>
 
-            {% if user_data %}
+            {% if status_code == "OK" %}
               <div class="row justify-content-center">
                 <div class="col-auto mt-5 ">
                   <div class='container center-block'>
@@ -107,6 +107,13 @@
                   </div>
 
                 </div>
+              </div>
+            {% elif status_code == "ERR_NF"%}
+              <div class="row text-center">
+                <div class="col-auto">
+                  <h3 class="error">Sorry, user "{{user_name}}" not found.</h3>
+                </div>
+
               </div>
             {% endif %}
 

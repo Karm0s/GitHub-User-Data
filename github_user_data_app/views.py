@@ -20,10 +20,15 @@ class IndexView(View):
 
 
         user_data = requests.get(github_api_user_url)
-        user_json_data = json.loads(user_data.content)
 
-        repos_data = requests.get(github_api_user_repos_url)
-        repos_json_data = json.loads(repos_data.content)
-        print(repos_json_data[0])
 
-        return render(request, self.template_name, context={'user_data': user_json_data, 'repos_data': repos_json_data})
+        if user_data.status_code == 200:
+            user_json_data = json.loads(user_data.content)
+
+            repos_data = requests.get(github_api_user_repos_url)
+            repos_json_data = json.loads(repos_data.content)
+            context = {'status_code': 'OK', 'user_data': user_json_data, 'repos_data': repos_json_data}
+        elif user_data.status_code == 404:
+            context = {'status_code': 'ERR_NF', 'user_name': request.POST['user']}
+
+        return render(request, self.template_name, context=context)
