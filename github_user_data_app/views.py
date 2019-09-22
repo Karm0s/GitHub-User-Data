@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponse, render
 from django.shortcuts import render
 from django.views.generic import View
-from django.utils import translation
 
 import requests
 import json
@@ -16,8 +15,6 @@ class IndexView(View):
     template_name = 'github_user_data_app/index.html'
 
     def get(self, request, *args, **kwargs):
-
-        translation.activate('en')
         return render(request, self.template_name)
 
 
